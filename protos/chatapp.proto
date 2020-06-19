@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package chatapp;
+
+message JoinUser {
+    string name = 1;
+}
+
+message JoinResponse {
+    string response = 1;
+}
+
+message SendRequest {
+        string from = 1;
+        string to = 2;
+        string content = 3;
+}
+
+message SendResponse {
+    int32 id = 1;
+    string from = 2;
+    string to = 3;
+    string content = 4;
+    string timestamp = 5;
+}
+
+message GetMessages {
+    string name = 1;
+}
+
+message Result {
+    int32 id = 1;
+    string from = 2;
+    string to = 3;
+    string content = 4;
+    string timestamp = 5;
+}
+
+message SendMessages {
+    repeated Result result = 1;
+}
+
+message GetUsers {
+    string request = 1;
+}
+
+message SendUsers {
+    repeated string name = 1;
+}
+
+service ChatApp {
+    rpc Join(JoinUser) returns (JoinResponse) {}
+    rpc Message(SendRequest) returns (SendResponse) {}
+    rpc UserMessage(GetMessages) returns (SendMessages) {}
+    rpc Users(GetUsers) returns (SendUsers) {}
+}
